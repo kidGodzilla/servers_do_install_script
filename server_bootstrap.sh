@@ -129,6 +129,16 @@ install-mongo() {
   fi
 }
 
+# Check if dokku memcached plugin is intalled and otherwise install it
+install-memcached() {
+  if sudo dokku plugin:installed memcached; then
+    echo "=> Memcached plugin already installed skipping"
+  else
+    echo "=> Installing memcached plugin"
+    sudo dokku plugin:install https://github.com/dokku/dokku-memcached.git memcached
+  fi
+}
+
 # Install Letsencrypt plugin
 install-letsencrypt() {
 	sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
