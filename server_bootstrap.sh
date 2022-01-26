@@ -17,7 +17,15 @@ add-public-key() {
 
 # Update apps
 apt-get-update() {
-	sudo apt-get update
+  sudo apt-get update
+}
+
+# Set up automatic updates
+automatic-updates() {
+  sudo apt install unattended-upgrades apt-listchanges bsd-mailx -y
+  sudo dpkg-reconfigure -plow unattended-upgrades -y
+  echo 'Unattended-Upgrade::Automatic-Reboot "true";' >> /etc/apt/apt.conf.d/50unattended-upgrades
+  sudo unattended-upgrades --dry-run
 }
 
 # Disable password-based SSH authentication
